@@ -12,22 +12,22 @@ const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "lineThrough";
 
 // Variables
-let LIST = [],
+let LIST, id;
+
+// get item from localstorage
+let data = localStorage.getItem("TODO");
+
+// check if data is not empty
+if(data === 0 ){
+    LIST = JSON.parse(data);
+    id = LIST.length; // set the id to the last one in the list
+    loadList(LIST); // load the list to the user interface
+}else{
+    // if data isn't empty
+    LIST = [];
     id = 0;
-
-// // get item from localstorage
-// let data = localStorage.getItem("TODO");
-
-// // check if data is not empty
-// if(data){
-//     LIST = JSON.parse(data);
-//     id = LIST.length; // set the id to the last one in the list
-//     loadList(LIST); // load the list to the user interface
-// }else{
-//     // if data isn't empty
-//     LIST = [];
-//     id = 0;
-// }
+}
+localStorage.setItem("TODO", JSON.stringify(LIST));
 
 // load items to the user's interface
 function loadList(array){
@@ -36,11 +36,11 @@ function loadList(array){
     });
 }
 
-// clear the local storage
-// clear.addEventListener("click", function(){
-//     localStorage.clear();
-//     location.reload();
-// });
+//clear the local storage
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+});
 
 // Show todays date
 const options = {weekday : "long", month:"short", day:"numeric"};
@@ -86,7 +86,7 @@ document.addEventListener("keyup",function(even){
             });
             
             // add item to localstorage ( this code must be added where the LIST array is updated)
-            //localStorage.setItem("TODO", JSON.stringify(LIST));
+            localStorage.setItem("TODO", JSON.stringify(LIST));
             
             id++;
         }
@@ -124,7 +124,7 @@ list.addEventListener("click", function(event){
     }
     
     // add item to localstorage ( this code must be added where the LIST array is updated)
-    //localStorage.setItem("TODO", JSON.stringify(LIST));
+    localStorage.setItem("TODO", JSON.stringify(LIST));
 });
 
 
